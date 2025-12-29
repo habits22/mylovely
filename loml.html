@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Queen ❤️</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&family=Sacramento&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --pink: #fce4ec;
+            --rose: #d81b60;
+            --beige: #fdfcfb;
+            --dark: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            overflow: hidden;
+            /* Dikunci sebelum password benar */
+        }
+
+        /* --- Password Overlay --- */
+        #password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--beige);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: 1s ease;
+        }
+
+        .pass-card {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .pass-card h2 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .pass-card input {
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            text-align: center;
+            outline: none;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .pass-card button {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .pass-card button:hover {
+            background: var(--rose);
+        }
+
+        /* --- Main Content --- */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--rose);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: twinkle 4s infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 20px;
+            position: relative;
+            z-index: 1;
+            visibility: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .header .sub {
+            font-family: 'Sacramento', cursive;
+            font-size: 2.5em;
+            color: var(--rose);
+            margin-top: -15px;
+        }
+
+        /* --- Polaroid Gallery --- */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 40px;
+            padding: 20px 0;
+        }
+
+        .photo-card {
+            background: #fff;
+            padding: 15px 15px 60px 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
+            transition: 0.5s;
+            position: relative;
+            transform: rotate(var(--r));
+        }
+
+        .photo-card:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            z-index: 10;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .photo-info {
+            text-align: left;
+            padding: 0 5px;
+        }
+
+        .photo-date {
+            font-size: 0.7em;
+            color: var(--rose);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .photo-desc {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1em;
+            color: #555;
+        }
+
+        /* --- Countdown --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 40px;
+            margin: 60px 0;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .countdown-wrap {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .time-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: var(--rose);
+            display: block;
+        }
+
+        /* --- Aesthetic Quotes Section --- */
+        .love-quotes {
+            text-align: center;
+            margin: 100px 0;
+            padding: 0 20px;
+        }
+
+        .quote-item {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            font-style: italic;
+            color: #444;
+            margin-bottom: 40px;
+            opacity: 0.8;
+            position: relative;
+        }
+
+        .quote-item::after {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 1px;
+            background: var(--rose);
+            margin: 20px auto;
+            opacity: 0.5;
+        }
+
+        .surprise-btn {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 22px 70px;
+            font-size: 1.1em;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: 0.4s;
+            display: block;
+            margin: 50px auto;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+        }
+
+        .surprise-btn:hover {
+            background: var(--rose);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2.8em;
+            }
+
+            .gallery {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="password-overlay">
+        <div class="pass-card">
+            <div style="font-size: 3em; margin-bottom: 10px;">🔒</div>
+            <h2>Unlock Our Secret Space</h2>
+            <input type="password" id="passInput" placeholder="Ketik kata kuncinya...">
+            <br>
+            <button onclick="checkPassword()">Open Heart</button>
+            <p id="error-msg" style="color: var(--rose); font-size: 0.8em; margin-top: 10px; display: none;">Salah
+                sayang, coba lagi!</p>
+        </div>
+    </div>
+
+    <div class="stars" id="stars"></div>
+
+    <div class="container" id="mainContent">
+        <header class="header">
+            <p style="letter-spacing: 3px; color: #999; font-size: 0.8em; margin-bottom: 10px;">SPECIAL FOR YOU</p>
+            <h1>Happy Birthday</h1>
+            <div class="sub">My Universe</div>
+        </header>
+
+        <div class="gallery" id="photoGallery">
+        </div>
+
+        <div class="glass-panel">
+            <h2 style="text-align: center; font-family: 'Playfair Display'; font-style: italic; margin-bottom: 30px;">
+                How many sunsets we've passed...</h2>
+            <div class="countdown-wrap">
+                <div class="time-box"><span class="time-number" id="years">0</span><span
+                        style="font-size: 0.7em;">Years</span></div>
+                <div class="time-box"><span class="time-number" id="months">0</span><span
+                        style="font-size: 0.7em;">Months</span></div>
+                <div class="time-box"><span class="time-number" id="days">0</span><span
+                        style="font-size: 0.7em;">Days</span></div>
+                <div class="time-box"><span class="time-number" id="hours">0</span><span
+                        style="font-size: 0.7em;">Hours</span></div>
+                <div class="time-box"><span class="time-number" id="minutes">0</span><span
+                        style="font-size: 0.7em;">Mins</span></div>
+                <div class="time-box"><span class="time-number" id="seconds">0</span><span
+                        style="font-size: 0.7em;">Secs</span></div>
+            </div>
+        </div>
+
+        <div class="love-quotes">
+            <div class="quote-item">"You are my today and all of my tomorrows."</div>
+            <div class="quote-item">"If I had a flower for every time I thought of you, I could walk through my garden
+                forever."</div>
+            <div class="quote-item">"In your smile, I see something more beautiful than the stars."</div>
+            <div class="quote-item">"You’re not just my love, you’re my home."</div>
+        </div>
+
+        <button class="surprise-btn" onclick="location.href='index.html'">A Special Surprise For You ✦</button>
+
+        <p
+            style="text-align: center; font-family: 'Sacramento', cursive; font-size: 2em; color: #aaa; margin-bottom: 50px;">
+            I love you more than words can say...
+        </p>
+    </div>
+
+    <script>
+        // 1. DATA FOTO PERMANEN (Ganti di sini!)
+        const myMemories = [
+            { src: '1.jpg', date: '6 Des 2025', desc: 'A photo with your favorite Nanami! You look so gorgeous and adorable with a bare face, though Im getting a bit jealous of Nanami right now' },
+            { src: '2.jpg', date: '6 DES 2025', desc: 'That annoying pose, but you look so lovely and stunning.I love this! Why are you always so beautiful.' },
+            { src: '3.jpg', date: '6 DES 2025', desc: 'And this one with your long hair... you look gorgeous no matter what. I love every style you pull off because you are always stunning to me, my love.' }
+        ];
+
+        // 2. SET PASSWORD (Ganti di sini!)
+        const SECRET_PASSWORD = "sayang";
+
+        function checkPassword() {
+            const input = document.getElementById('passInput').value;
+            if (input.toLowerCase() === SECRET_PASSWORD.toLowerCase()) {
+                document.getElementById('password-overlay').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('password-overlay').style.display = 'none';
+                    document.getElementById('mainContent').style.visibility = 'visible';
+                    document.body.style.overflow = 'auto';
+                }, 1000);
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+
+        // 3. LOAD GALLERY
+        function initGallery() {
+            const container = document.getElementById('photoGallery');
+            myMemories.forEach(item => {
+                const rotation = (Math.random() * 6 - 3).toFixed(2);
+                const card = document.createElement('div');
+                card.className = 'photo-card';
+                card.style.setProperty('--r', rotation + 'deg');
+                card.innerHTML = `
+                    <img src="${item.src}">
+                    <div class="photo-info">
+                        <p class="photo-date">${item.date}</p>
+                        <p class="photo-desc">${item.desc}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 4. COUNTDOWN LOGIC
+        const startDate = new Date(2025, 10, 11);
+        function update() {
+            const now = new Date();
+            const diff = now - startDate;
+            if (diff < 0) return;
+            const sec = Math.floor(diff / 1000);
+            const min = Math.floor(sec / 60);
+            const hr = Math.floor(min / 60);
+            const day = Math.floor(hr / 24);
+            document.getElementById('years').innerText = Math.floor(day / 365);
+            document.getElementById('months').innerText = Math.floor((day % 365) / 30);
+            document.getElementById('days').innerText = (day % 365) % 30;
+            document.getElementById('hours').innerText = hr % 24;
+            document.getElementById('minutes').innerText = min % 60;
+            document.getElementById('seconds').innerText = (sec % 60).toString().padStart(2, '0');
+        }
+
+        function initStars() {
+            const c = document.getElementById('stars');
+            for (let i = 0; i < 60; i++) {
+                const s = document.createElement('div'); s.className = 'star';
+                s.style.left = Math.random() * 100 + '%'; s.style.top = Math.random() * 100 + '%';
+                c.appendChild(s);
+            }
+        }
+
+        window.onload = () => {
+            initGallery();
+            initStars();
+            setInterval(update, 1000);
+            update();
+        };
+    </script>
+</body>
+
+</html>
